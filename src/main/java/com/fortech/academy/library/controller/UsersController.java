@@ -3,9 +3,7 @@ package com.fortech.academy.library.controller;
 import com.fortech.academy.library.entities.User;
 import com.fortech.academy.library.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +24,25 @@ public class UsersController {
         return "It works...";
     }
 
+    @PostMapping
+    public void createUser(@RequestBody CreateUserRequest requestBody) {
+        User newUser = new User();
+        newUser.setUsername(requestBody.getUsername());
+        newUser.setPassword(requestBody.getPassword());
+        newUser.setFirstName(requestBody.getFirstName());
+        newUser.setLastName(requestBody.getLastName());
+        newUser.setPhoneNumber(requestBody.getPhoneNumber());
+        newUser.setEmailAddress(requestBody.getEmailAddress());
+        usersService.addUser(newUser);
+    }
+
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<User> readAllUsers() {
         return usersService.getAllUsers();
     }
+
+
+
+
 }
 

@@ -1,42 +1,14 @@
-package com.fortech.academy.library.entities;
+package com.fortech.academy.library.controller;
 
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "username")
+public class CreateUserRequest {
     private String username;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "phone_number")
     private String phoneNumber;
-
-    @Column(name = "email_address")
     private String emailAddress;
 
-    public User() {
-    }
-
-    public User(String username, String password, String firstName, String lastName, String phoneNumber, String emailAddress) {
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.emailAddress = emailAddress;
+    public CreateUserRequest() {
     }
 
     public String getUsername() {
@@ -86,6 +58,4 @@ public class User {
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-
-
 }

@@ -20,4 +20,8 @@ private final UsersRepository usersRepository;
     public List<User> getAllUsers() {
       return usersRepository.findAll();
     }
+
+    public void addUser(User newUser) {
+    usersRepository.save(newUser);
+    }
 }
