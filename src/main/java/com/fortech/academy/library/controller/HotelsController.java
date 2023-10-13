@@ -1,13 +1,10 @@
 package com.fortech.academy.library.controller;
 
-import com.fortech.academy.library.controller.service.HotelsService;
+import com.fortech.academy.library.service.HotelsService;
 import com.fortech.academy.library.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,8 +23,21 @@ public class HotelsController {
         return "It works...";
     }
 
+    @PostMapping
+    public void createBook(@RequestBody CreateHotelRequest requestBody) {
+        Hotel newHotel = new Hotel();
+        newHotel.setHotelName(requestBody.getHotelName());
+        newHotel.setHotelLocation(requestBody.getHotelLocation());
+        newHotel.setRating(requestBody.getRating());
+        newHotel.setBreakfast(requestBody.isBreakfast());
+        newHotel.setWifiConnection(true);
+        newHotel.setPrivateParking(requestBody.isPrivateParking());
+        newHotel.setMinibar(requestBody.isMinibar());
+        hotelsService.addHotel(newHotel);
+    }
+
     @GetMapping
-    public List<Hotel> getAllHotels() {
+    public List<Hotel> readAllHotels() {
         return hotelsService.getAllHotels();
     }
 
