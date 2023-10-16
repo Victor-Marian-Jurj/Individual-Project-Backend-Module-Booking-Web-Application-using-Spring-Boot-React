@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 
 public class CreateRoomRequest {
 
+    private Long hotelId;
     private int roomNumber;
 
     private String roomType;
@@ -12,6 +13,13 @@ public class CreateRoomRequest {
 
     private int roomPrice;
 
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
+    }
 
     public int getRoomNumber() {
         return roomNumber;
