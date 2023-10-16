@@ -14,13 +14,13 @@ public class Payment {
     private Long paymentId;
 
     @Column(name = "user_id")
-    private int user_id;
+    private int userId;
 
     @Column(name = "name_on_card")
     private String nameOnCard;
 
     @Column(name = "card_number")
-    private int cardNumber;
+    private Long cardNumber;
 
     @Column(name = "expiration_date")
     private Date expirationDate;
@@ -28,8 +28,11 @@ public class Payment {
     @Column(name = "cvc_number")
     private int cvcNumber;
 
-    public Payment(int user_id, String nameOnCard, int cardNumber, Date expirationDate, int cvcNumber) {
-        this.user_id = user_id;
+    public Payment() {
+    }
+
+    public Payment(int userId, String nameOnCard, Long cardNumber, Date expirationDate, int cvcNumber) {
+        this.userId = userId;
         this.nameOnCard = nameOnCard;
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
@@ -40,12 +43,12 @@ public class Payment {
         return paymentId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getNameOnCard() {
@@ -56,11 +59,11 @@ public class Payment {
         this.nameOnCard = nameOnCard;
     }
 
-    public int getCardNumber() {
+    public Long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(Long cardNumber) {
         this.cardNumber = cardNumber;
     }
 
