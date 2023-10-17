@@ -1,6 +1,5 @@
 package com.fortech.academy.library.entities;
 
-
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -35,6 +34,9 @@ public class Reservation {
 
     @Column(name = "total_payment")
     private int totalPayment;
+
+    public Reservation() {
+    }
 
     public Reservation(int userId, int hotelId, int roomId, Date checkInDate, Date checkOutDate, String paymentMethod, int totalPayment) {
         this.userId = userId;
