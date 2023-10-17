@@ -3,9 +3,7 @@ package com.fortech.academy.library.controller;
 
 import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.service.PaymentsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,16 @@ public class PaymentsController {
     @GetMapping
     public List<Payment> readAllPayments() {
         return paymentsService.getAllPayments();
+    }
+
+    @PostMapping
+    public void createPayment(@RequestBody CreatePaymentRequest requestBody) {
+        Payment newPayment = new Payment();
+        newPayment.setUserId(requestBody.getUserId());
+        newPayment.setNameOnCard(requestBody.getNameOnCard());
+        newPayment.setCardNumber(requestBody.getCardNumber());
+        newPayment.setExpirationDate(requestBody.getExpirationDate());
+        newPayment.setCvcNumber(requestBody.getCvcNumber());
+        paymentsService.addPayment(newPayment);
     }
 }

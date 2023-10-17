@@ -21,4 +21,8 @@ public class PaymentsService {
         return paymentsRepository.findAll();
 
     }
+
+    public void addPayment(Payment newPayment) {
+        paymentsRepository.save(newPayment);
+    }
 }
