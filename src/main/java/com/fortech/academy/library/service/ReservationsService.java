@@ -18,4 +18,8 @@ private final ReservationsRepository reservationsRepository;
     public List<Reservation> getAllReservations() {
         return reservationsRepository.findAll();
     }
+
+    public void addReservation(Reservation newReservation) {
+        reservationsRepository.save(newReservation);
+    }
 }

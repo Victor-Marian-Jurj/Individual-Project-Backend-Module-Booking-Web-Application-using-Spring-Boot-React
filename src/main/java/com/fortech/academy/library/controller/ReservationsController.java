@@ -1,10 +1,9 @@
 package com.fortech.academy.library.controller;
 
+import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.service.ReservationsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +27,16 @@ public class ReservationsController {
         return reservationsService.getAllReservations();
     }
 
+    @PostMapping
+    public void createReservation (@RequestBody CreateReservationRequest requestBody) {
+        Reservation newReservation = new Reservation();
+        newReservation.setUserId(requestBody.getUserId());;
+        newReservation.setHotelId(requestBody.getHotelId());
+        newReservation.setRoomId(requestBody.getRoomId());
+        newReservation.setCheckInDate(requestBody.getCheckInDate());
+        newReservation.setCheckOutDate(requestBody.getCheckOutDate());
+        newReservation.setPaymentMethod(requestBody.getPaymentMethod());
+        newReservation.setTotalPayment(requestBody.getTotalPayment());
+        reservationsService.addReservation(newReservation);
+    }
 }
