@@ -9,6 +9,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "username")
     private String username;
 
@@ -37,6 +40,10 @@ public class User {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getUsername() {

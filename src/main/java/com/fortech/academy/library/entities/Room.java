@@ -13,7 +13,7 @@ public class Room {
     private Long roomId;
 
     @Column(name = "hotel_id")
-    private Long hotelId;
+    private int hotelId;
 
     @Column(name = "room_number")
     private int roomNumber;
@@ -30,7 +30,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(Long hotelId, int roomNumber, String roomType, int roomFloor, int roomPrice) {
+    public Room(int hotelId, int roomNumber, String roomType, int roomFloor, int roomPrice) {
         this.hotelId = hotelId;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
@@ -42,11 +42,11 @@ public class Room {
         return roomId;
     }
 
-    public Long getHotelId() {
+    public int getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Long hotelId) {
+    public void setHotelId(int hotelId) {
         this.hotelId = hotelId;
     }
 

@@ -1,10 +1,7 @@
 package com.fortech.academy.library.controller;
 
-import jakarta.persistence.Column;
-
 public class CreateRoomRequest {
-
-    private Long hotelId;
+    private int hotelId;
     private int roomNumber;
 
     private String roomType;

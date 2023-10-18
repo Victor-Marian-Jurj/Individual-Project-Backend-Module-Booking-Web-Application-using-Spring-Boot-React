@@ -19,7 +19,6 @@ public class RoomsController {
         this.roomsService = roomsService;
     }
 
-
     @GetMapping("test")
     public String test() {
         return "It works...";
@@ -28,14 +27,13 @@ public class RoomsController {
     @PostMapping
     public void createRoom(@RequestBody CreateRoomRequest requestBody) {
         Room newRoom = new Room();
-        newRoom.setHotelId((long) requestBody.getHotelId());
+        newRoom.setHotelId(requestBody.getHotelId());
         newRoom.setRoomNumber(requestBody.getRoomNumber());
         newRoom.setRoomType(requestBody.getRoomType());
         newRoom.setRoomFloor(requestBody.getRoomFloor());
         newRoom.setRoomPrice(requestBody.getRoomPrice());
         roomsService.addRoom(newRoom);
     }
-
 
     @GetMapping
     public List<Room> readAllRooms() {
