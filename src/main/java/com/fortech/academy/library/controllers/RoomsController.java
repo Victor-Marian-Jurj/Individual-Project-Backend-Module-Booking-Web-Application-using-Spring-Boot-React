@@ -1,6 +1,5 @@
 package com.fortech.academy.library.controllers;
 
-
 import com.fortech.academy.library.entities.Room;
 import com.fortech.academy.library.services.RoomsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,6 @@ public class RoomsController {
     @Autowired
     public RoomsController(RoomsService roomsService) {
         this.roomsService = roomsService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
