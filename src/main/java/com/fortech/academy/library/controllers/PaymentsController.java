@@ -1,12 +1,10 @@
 package com.fortech.academy.library.controllers;
 
-
 import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.services.PaymentsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -16,14 +14,8 @@ public class PaymentsController {
 
     private final PaymentsService paymentsService;
 
-
     public PaymentsController(PaymentsService paymentsService) {
         this.paymentsService = paymentsService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
