@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RoomsService {
@@ -20,12 +21,16 @@ public class RoomsService {
         this.roomsRepository = roomsRepository;
     }
 
+    public void addRoom(Room newRoom) {
+        roomsRepository.save(newRoom);
+    }
+
+    public Room getRoomById(Long id) throws NoSuchElementException {
+        return roomsRepository.findById(id).orElseThrow();
+    }
+
     @GetMapping
     public List<Room> getAllRooms() {
         return roomsRepository.findAll();
-    }
-
-    public void addRoom(Room newRoom) {
-        roomsRepository.save(newRoom);
     }
 }
