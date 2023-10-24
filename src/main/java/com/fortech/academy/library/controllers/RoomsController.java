@@ -48,8 +48,10 @@ public class RoomsController {
     }
 
     @GetMapping
-    public List<Room> readAllRooms() {
-        return roomsService.getAllRooms();
+    public ResponseEntity<ReadAllRoomsResponse> readAllRooms() {
+        List<Room> rooms = roomsService.getAllRooms();
+        ReadAllRoomsResponse responseBody = new ReadAllRoomsResponse(rooms);
+        return ResponseEntity.ok(responseBody);
     }
 }
 
