@@ -1,13 +1,11 @@
 package com.fortech.academy.library.controllers;
 
-import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.entities.User;
 import com.fortech.academy.library.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -20,12 +18,6 @@ public class UsersController {
     @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
-    }
-
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
