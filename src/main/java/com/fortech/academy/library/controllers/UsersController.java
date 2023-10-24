@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -50,8 +51,10 @@ public class UsersController {
     }
 
     @GetMapping
-    public List<User> readAllUsers() {
-        return usersService.getAllUsers();
+    public ResponseEntity<ReadAllUsersResponse> readAllUsers() {
+        List<User> users = usersService.getAllUsers();
+        ReadAllUsersResponse responseBody = new ReadAllUsersResponse(users);
+        return ResponseEntity.ok(responseBody);
     }
 
 
