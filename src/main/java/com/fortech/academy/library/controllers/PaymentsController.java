@@ -6,6 +6,7 @@ import com.fortech.academy.library.services.PaymentsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -48,7 +49,10 @@ public class PaymentsController {
     }
 
     @GetMapping
-    public List<Payment> readAllPayments() {
-        return paymentsService.getAllPayments();
+    public ResponseEntity<ReadAllPaymentsResponse> readAllPayments() {
+        List<Payment> payments = paymentsService.getAllPayments();
+        ReadAllPaymentsResponse responseBody = new ReadAllPaymentsResponse(payments);
+        return ResponseEntity.ok(responseBody);
     }
 }
+
