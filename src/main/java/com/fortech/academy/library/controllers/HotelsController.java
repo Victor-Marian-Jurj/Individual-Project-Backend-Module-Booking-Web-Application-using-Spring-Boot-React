@@ -1,11 +1,13 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
-import com.fortech.academy.library.service.HotelsService;
+import com.fortech.academy.library.services.HotelsService;
 import com.fortech.academy.library.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("hotels")
@@ -16,11 +18,6 @@ public class HotelsController {
     @Autowired
     public HotelsController(HotelsService hotelsService) {
         this.hotelsService = hotelsService;
-    }
-
-    @GetMapping("test")
-    public String test(){
-        return "It works...";
     }
 
     @PostMapping
@@ -36,9 +33,20 @@ public class HotelsController {
         hotelsService.addHotel(newHotel);
     }
 
-    @GetMapping
-    public List<Hotel> readAllHotels() {
-        return hotelsService.getAllHotels();
+    @GetMapping("{id}")
+    public ResponseEntity<Hotel> readHotelById(@PathVariable Long id) {
+        try {
+            Hotel responseBody = hotelsService.getHotelbyId(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    @GetMapping
+    public ResponseEntity<ReadAllHotelsResponse> readAllHotels() {
+        List<Hotel> hotels = hotelsService.getAllHotels();
+        ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
+        return ResponseEntity.ok(responseBody);
+    }
 }

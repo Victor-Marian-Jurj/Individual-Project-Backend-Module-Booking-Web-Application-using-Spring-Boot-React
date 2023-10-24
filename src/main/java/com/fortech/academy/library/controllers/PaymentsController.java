@@ -1,11 +1,12 @@
-package com.fortech.academy.library.controller;
-
+package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Payment;
-import com.fortech.academy.library.service.PaymentsService;
+import com.fortech.academy.library.services.PaymentsService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("payments")
@@ -13,19 +14,8 @@ public class PaymentsController {
 
     private final PaymentsService paymentsService;
 
-
     public PaymentsController(PaymentsService paymentsService) {
         this.paymentsService = paymentsService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
-    }
-
-    @GetMapping
-    public List<Payment> readAllPayments() {
-        return paymentsService.getAllPayments();
     }
 
     @PostMapping
@@ -38,4 +28,23 @@ public class PaymentsController {
         newPayment.setCvcNumber(requestBody.getCvcNumber());
         paymentsService.addPayment(newPayment);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Payment> readPaymentById(@PathVariable Long id) {
+        try {
+            Payment responseBody = paymentsService.getBookById(id);
+            return ResponseEntity.ok(responseBody);
+        } catch
+        (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<ReadAllPaymentsResponse> readAllPayments() {
+        List<Payment> payments = paymentsService.getAllPayments();
+        ReadAllPaymentsResponse responseBody = new ReadAllPaymentsResponse(payments);
+        return ResponseEntity.ok(responseBody);
+    }
 }
+

@@ -1,11 +1,13 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.User;
-import com.fortech.academy.library.service.UsersService;
+import com.fortech.academy.library.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("users")
@@ -16,12 +18,6 @@ public class UsersController {
     @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
-    }
-
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
@@ -36,9 +32,21 @@ public class UsersController {
         usersService.addUser(newUser);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<User> readUserById (@PathVariable Long id) {
+        try { User responseBody = usersService.getUserById(id);
+            return ResponseEntity.ok(responseBody);
+
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping
-    public List<User> readAllUsers() {
-        return usersService.getAllUsers();
+    public ResponseEntity<ReadAllUsersResponse> readAllUsers() {
+        List<User> users = usersService.getAllUsers();
+        ReadAllUsersResponse responseBody = new ReadAllUsersResponse(users);
+        return ResponseEntity.ok(responseBody);
     }
 
 

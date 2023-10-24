@@ -1,12 +1,13 @@
-package com.fortech.academy.library.controller;
-
+package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Room;
-import com.fortech.academy.library.service.RoomsService;
+import com.fortech.academy.library.services.RoomsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("rooms")
@@ -17,11 +18,6 @@ public class RoomsController {
     @Autowired
     public RoomsController(RoomsService roomsService) {
         this.roomsService = roomsService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
@@ -35,9 +31,21 @@ public class RoomsController {
         roomsService.addRoom(newRoom);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Room> readRoomById (@PathVariable Long id) {
+        try { Room responseBody = roomsService.getRoomById(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     @GetMapping
-    public List<Room> readAllRooms() {
-        return roomsService.getAllRooms();
+    public ResponseEntity<ReadAllRoomsResponse> readAllRooms() {
+        List<Room> rooms = roomsService.getAllRooms();
+        ReadAllRoomsResponse responseBody = new ReadAllRoomsResponse(rooms);
+        return ResponseEntity.ok(responseBody);
     }
 }
 
