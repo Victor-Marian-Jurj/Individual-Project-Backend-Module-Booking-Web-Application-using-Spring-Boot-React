@@ -49,8 +49,9 @@ public class HotelsController {
     }
 
     @GetMapping
-    public List<Hotel> readAllHotels() {
-        return hotelsService.getAllHotels();
+    public ResponseEntity<ReadAllHotelsResponse> readAllHotels() {
+        List<Hotel> hotels = hotelsService.getAllHotels();
+        ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels)
+        return ResponseEntity.ok(responseBody);
     }
-
 }
