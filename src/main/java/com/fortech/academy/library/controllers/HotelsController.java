@@ -20,11 +20,6 @@ public class HotelsController {
         this.hotelsService = hotelsService;
     }
 
-    @GetMapping("test")
-    public String test(){
-        return "It works...";
-    }
-
     @PostMapping
     public void createBook(@RequestBody CreateHotelRequest requestBody) {
         Hotel newHotel = new Hotel();
@@ -43,7 +38,7 @@ public class HotelsController {
         try {
             Hotel responseBody = hotelsService.getHotelbyId(id);
             return ResponseEntity.ok(responseBody);
-        } catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -51,7 +46,7 @@ public class HotelsController {
     @GetMapping
     public ResponseEntity<ReadAllHotelsResponse> readAllHotels() {
         List<Hotel> hotels = hotelsService.getAllHotels();
-        ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels)
+        ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
         return ResponseEntity.ok(responseBody);
     }
 }
