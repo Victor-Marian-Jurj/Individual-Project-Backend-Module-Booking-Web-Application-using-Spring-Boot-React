@@ -1,6 +1,6 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
-import com.fortech.academy.library.service.HotelsService;
+import com.fortech.academy.library.services.HotelsService;
 import com.fortech.academy.library.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

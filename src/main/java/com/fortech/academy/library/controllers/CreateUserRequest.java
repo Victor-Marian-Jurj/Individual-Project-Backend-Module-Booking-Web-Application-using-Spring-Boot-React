@@ -1,4 +1,4 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
 public class CreateUserRequest {
     private String username;

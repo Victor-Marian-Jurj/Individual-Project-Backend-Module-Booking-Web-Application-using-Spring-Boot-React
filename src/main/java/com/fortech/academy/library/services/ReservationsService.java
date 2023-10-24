@@ -1,7 +1,7 @@
-package com.fortech.academy.library.service;
+package com.fortech.academy.library.services;
 
 import com.fortech.academy.library.entities.Reservation;
-import com.fortech.academy.library.repository.ReservationsRepository;
+import com.fortech.academy.library.repositories.ReservationsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

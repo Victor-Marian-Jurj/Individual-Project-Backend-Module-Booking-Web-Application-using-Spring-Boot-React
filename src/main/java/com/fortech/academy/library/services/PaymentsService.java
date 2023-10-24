@@ -1,8 +1,8 @@
-package com.fortech.academy.library.service;
+package com.fortech.academy.library.services;
 
 
 import com.fortech.academy.library.entities.Payment;
-import com.fortech.academy.library.repository.PaymentsRepository;
+import com.fortech.academy.library.repositories.PaymentsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

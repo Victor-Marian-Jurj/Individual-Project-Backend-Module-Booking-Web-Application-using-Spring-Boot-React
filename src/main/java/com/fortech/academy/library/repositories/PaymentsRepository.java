@@ -1,4 +1,4 @@
-package com.fortech.academy.library.repository;
+package com.fortech.academy.library.repositories;
 
 import com.fortech.academy.library.entities.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;

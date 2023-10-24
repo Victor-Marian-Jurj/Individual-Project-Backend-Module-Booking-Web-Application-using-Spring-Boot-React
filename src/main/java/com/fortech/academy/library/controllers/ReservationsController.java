@@ -1,8 +1,7 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
-import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.entities.Reservation;
-import com.fortech.academy.library.service.ReservationsService;
+import com.fortech.academy.library.services.ReservationsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

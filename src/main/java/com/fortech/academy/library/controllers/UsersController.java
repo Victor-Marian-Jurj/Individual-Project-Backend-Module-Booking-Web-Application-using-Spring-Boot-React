@@ -1,7 +1,7 @@
-package com.fortech.academy.library.controller;
+package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.User;
-import com.fortech.academy.library.service.UsersService;
+import com.fortech.academy.library.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
