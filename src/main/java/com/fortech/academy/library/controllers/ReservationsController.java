@@ -5,7 +5,6 @@ import com.fortech.academy.library.services.ReservationsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,11 +16,6 @@ public class ReservationsController {
 
     public ReservationsController(ReservationsService reservationsService) {
         this.reservationsService = reservationsService;
-    }
-
-    @GetMapping("test")
-    public String test() {
-        return "It works...";
     }
 
     @PostMapping
