@@ -1,11 +1,14 @@
 package com.fortech.academy.library.controllers;
 
+import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.entities.User;
 import com.fortech.academy.library.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("users")
@@ -34,6 +37,16 @@ public class UsersController {
         newUser.setPhoneNumber(requestBody.getPhoneNumber());
         newUser.setEmailAddress(requestBody.getEmailAddress());
         usersService.addUser(newUser);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<User> readUserById (@PathVariable Long id) {
+        try { User responseBody = usersService.getUserById(id);
+            return ResponseEntity.ok(responseBody);
+
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
