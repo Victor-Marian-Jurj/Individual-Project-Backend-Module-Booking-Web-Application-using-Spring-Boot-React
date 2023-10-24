@@ -25,9 +25,10 @@ public class ReservationsController {
     }
 
     @PostMapping
-    public void createReservation (@RequestBody CreateReservationRequest requestBody) {
+    public void createReservation(@RequestBody CreateReservationRequest requestBody) {
         Reservation newReservation = new Reservation();
-        newReservation.setUserId(requestBody.getUserId());;
+        newReservation.setUserId(requestBody.getUserId());
+        ;
         newReservation.setHotelId(requestBody.getHotelId());
         newReservation.setRoomId(requestBody.getRoomId());
         newReservation.setCheckInDate(requestBody.getCheckInDate());
@@ -38,7 +39,7 @@ public class ReservationsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Reservation> readReservationById (@PathVariable Long id) {
+    public ResponseEntity<Reservation> readReservationById(@PathVariable Long id) {
         try {
             Reservation responseBody = reservationsService.getReservationById(id);
             return ResponseEntity.ok(responseBody);
@@ -48,7 +49,9 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public List<Reservation> readAllReservations() {
-        return reservationsService.getAllReservations();
+    public ResponseEntity<ReadAllReservationsResponse> readAllReservations() {
+        List<Reservation> reservations = reservationsService.getAllReservations();
+        ReadAllReservationsResponse responseBody = new ReadAllReservationsResponse(reservations);
+        return ResponseEntity.ok(responseBody);
     }
 }
