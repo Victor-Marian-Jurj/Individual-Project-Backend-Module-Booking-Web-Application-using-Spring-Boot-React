@@ -3,9 +3,11 @@ package com.fortech.academy.library.controllers;
 import com.fortech.academy.library.services.HotelsService;
 import com.fortech.academy.library.entities.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("hotels")
@@ -34,6 +36,16 @@ public class HotelsController {
         newHotel.setPrivateParking(requestBody.isPrivateParking());
         newHotel.setMinibar(requestBody.isMinibar());
         hotelsService.addHotel(newHotel);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Hotel> readHotelById(@PathVariable Long id) {
+        try {
+            Hotel responseBody = hotelsService.getHotelbyId(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping

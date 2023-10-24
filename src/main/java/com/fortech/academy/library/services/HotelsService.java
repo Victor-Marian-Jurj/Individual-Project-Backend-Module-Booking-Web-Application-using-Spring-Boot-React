@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class HotelsService {
@@ -17,11 +18,15 @@ public class HotelsService {
         this.hotelsRepository = hotelsRepository;
     }
 
-    public List<Hotel> getAllHotels() {
-        return hotelsRepository.findAll();
-    }
-
     public void addHotel(Hotel newHotel) {
         hotelsRepository.save(newHotel);
+    }
+
+    public Hotel getHotelbyId(Long id) throws NoSuchElementException {
+        return hotelsRepository.findById(id).orElseThrow();
+    }
+
+    public List<Hotel> getAllHotels() {
+        return hotelsRepository.findAll();
     }
 }
