@@ -2,9 +2,12 @@ package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.services.ReservationsService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("reservations")
@@ -21,11 +24,6 @@ public class ReservationsController {
         return "It works...";
     }
 
-    @GetMapping
-    public List<Reservation> readAllReservations() {
-        return reservationsService.getAllReservations();
-    }
-
     @PostMapping
     public void createReservation (@RequestBody CreateReservationRequest requestBody) {
         Reservation newReservation = new Reservation();
@@ -37,5 +35,20 @@ public class ReservationsController {
         newReservation.setPaymentMethod(requestBody.getPaymentMethod());
         newReservation.setTotalPayment(requestBody.getTotalPayment());
         reservationsService.addReservation(newReservation);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Reservation> readReservationById (@PathVariable Long id) {
+        try {
+            Reservation responseBody = reservationsService.getReservationById(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    public List<Reservation> readAllReservations() {
+        return reservationsService.getAllReservations();
     }
 }
