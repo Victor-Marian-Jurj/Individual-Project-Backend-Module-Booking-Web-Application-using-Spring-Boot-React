@@ -49,4 +49,14 @@ public class HotelsController {
         ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
         return ResponseEntity.ok(responseBody);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Hotel> disableHotelWifiById(@PathVariable Long id) {
+        try {
+            Hotel responseBody = hotelsService.disableHotelWifiById(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

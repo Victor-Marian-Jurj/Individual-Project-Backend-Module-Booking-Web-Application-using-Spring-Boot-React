@@ -2,6 +2,7 @@ package com.fortech.academy.library.services;
 
 import com.fortech.academy.library.entities.Hotel;
 import com.fortech.academy.library.repositories.HotelsRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,12 @@ public class HotelsService {
     public List<Hotel> getAllHotels() {
         return hotelsRepository.findAll();
     }
+
+    @Transactional
+    public Hotel disableHotelWifiById(Long id) {
+        Hotel hotel = hotelsRepository.findById(id).orElseThrow();
+        hotel.setWifiConnection(false);
+        return hotel;
+    }
+
 }
