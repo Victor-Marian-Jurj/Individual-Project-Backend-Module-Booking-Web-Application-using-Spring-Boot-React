@@ -38,4 +38,10 @@ public class HotelsService {
         return hotel;
     }
 
+    @Transactional
+    public Hotel updateOneHotel(Long id) {
+        Hotel hotel = hotelsRepository.findById(id).orElseThrow();
+        return hotel;
+    }
+
 }
