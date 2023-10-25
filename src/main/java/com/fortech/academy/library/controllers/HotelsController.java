@@ -21,7 +21,7 @@ public class HotelsController {
     }
 
     @PostMapping
-    public void createBook(@RequestBody CreateHotelRequest requestBody) {
+    public void createHotel(@RequestBody CreateHotelRequest requestBody) {
         Hotel newHotel = new Hotel();
         newHotel.setHotelName(requestBody.getHotelName());
         newHotel.setHotelLocation(requestBody.getHotelLocation());
@@ -48,5 +48,31 @@ public class HotelsController {
         List<Hotel> hotels = hotelsService.getAllHotels();
         ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
         return ResponseEntity.ok(responseBody);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Hotel> disableHotelWifiById(@PathVariable Long id) {
+        try {
+            Hotel responseBody = hotelsService.disableHotelWifiById(id);
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Hotel> updateHotel(@RequestBody UpdateHotelRequest requestBody, @PathVariable Long id) {
+        try {
+            Hotel responseBody = hotelsService.updateOneHotel(id);
+            responseBody.setRating(requestBody.getRating());
+            responseBody.setBreakfast(requestBody.isBreakfast());
+            responseBody.setWifiConnection(true);
+            responseBody.setPrivateParking(requestBody.isPrivateParking());
+            responseBody.setMinibar(requestBody.isMinibar());
+            hotelsService.updateOneHotel(responseBody.getHotelId());
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
