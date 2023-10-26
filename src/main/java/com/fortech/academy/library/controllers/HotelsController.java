@@ -1,24 +1,22 @@
 package com.fortech.academy.library.controllers;
 
-import com.fortech.academy.library.services.HotelsService;
 import com.fortech.academy.library.entities.Hotel;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fortech.academy.library.services.HotelsService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("hotels")
+@RequiredArgsConstructor
+@Slf4j
 public class HotelsController {
 
     private final HotelsService hotelsService;
-
-    @Autowired
-    public HotelsController(HotelsService hotelsService) {
-        this.hotelsService = hotelsService;
-    }
 
     @PostMapping
     public void createHotel(@RequestBody CreateHotelRequest requestBody) {
@@ -44,7 +42,10 @@ public class HotelsController {
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllHotelsResponse> readAllHotels() {
+    public ResponseEntity<ReadAllHotelsResponse> readAllHotels(Authentication authentication) {
+        log.info("readAllHotels");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         List<Hotel> hotels = hotelsService.getAllHotels();
         ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
         return ResponseEntity.ok(responseBody);

@@ -2,21 +2,19 @@ package com.fortech.academy.library.services;
 
 import com.fortech.academy.library.entities.User;
 import com.fortech.academy.library.repositories.UsersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class UsersService {
 
 private final UsersRepository usersRepository;
-
-@Autowired
-    public UsersService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
-    }
 
     public void addUser(User newUser) {
     usersRepository.save(newUser);
@@ -27,6 +25,7 @@ private final UsersRepository usersRepository;
     }
 
     public List<User> getAllUsers() {
+        log.info("getAllUsers");
         return usersRepository.findAll();
     }
 }
