@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("hotels")
@@ -42,8 +42,10 @@ public class HotelsController {
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllHotelsResponse> readAllHotels() {
+    public ResponseEntity<ReadAllHotelsResponse> readAllHotels(Authentication authentication) {
         log.info("readAllHotels");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         List<Hotel> hotels = hotelsService.getAllHotels();
         ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
         return ResponseEntity.ok(responseBody);

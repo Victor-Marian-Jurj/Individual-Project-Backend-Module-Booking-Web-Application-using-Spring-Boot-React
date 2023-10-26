@@ -5,6 +5,7 @@ import com.fortech.academy.library.services.ReservationsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,8 +43,10 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllReservationsResponse> readAllReservations() {
+    public ResponseEntity<ReadAllReservationsResponse> readAllReservations(Authentication authentication) {
         log.info("readAllReservations");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         List<Reservation> reservations = reservationsService.getAllReservations();
         ReadAllReservationsResponse responseBody = new ReadAllReservationsResponse(reservations);
         return ResponseEntity.ok(responseBody);

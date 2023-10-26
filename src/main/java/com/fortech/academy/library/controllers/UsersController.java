@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,8 +43,10 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllUsersResponse> readAllUsers() {
+    public ResponseEntity<ReadAllUsersResponse> readAllUsers(Authentication authentication) {
         log.info("readAllUsers");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         List<User> users = usersService.getAllUsers();
         ReadAllUsersResponse responseBody = new ReadAllUsersResponse(users);
         return ResponseEntity.ok(responseBody);
