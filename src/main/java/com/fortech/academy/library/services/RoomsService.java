@@ -1,9 +1,9 @@
 package com.fortech.academy.library.services;
 
-
 import com.fortech.academy.library.entities.Room;
 import com.fortech.academy.library.repositories.RoomsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,15 +11,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class RoomsService {
 
     private final RoomsRepository roomsRepository;
-
-
-    @Autowired
-    public RoomsService(RoomsRepository roomsRepository) {
-        this.roomsRepository = roomsRepository;
-    }
 
     public void addRoom(Room newRoom) {
         roomsRepository.save(newRoom);
@@ -31,6 +27,7 @@ public class RoomsService {
 
     @GetMapping
     public List<Room> getAllRooms() {
+        log.info("getAllRooms");
         return roomsRepository.findAll();
     }
 }

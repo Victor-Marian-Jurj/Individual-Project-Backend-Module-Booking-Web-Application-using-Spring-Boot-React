@@ -2,19 +2,19 @@ package com.fortech.academy.library.services;
 
 import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.repositories.ReservationsRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ReservationsService {
 
 private final ReservationsRepository reservationsRepository;
-
-    public ReservationsService(ReservationsRepository reservationsRepository) {
-        this.reservationsRepository = reservationsRepository;
-    }
 
     public void addReservation(Reservation newReservation) {
         reservationsRepository.save(newReservation);
@@ -26,6 +26,7 @@ private final ReservationsRepository reservationsRepository;
     }
 
     public List<Reservation> getAllReservations() {
+        log.info("getAllReservations");
         return reservationsRepository.findAll();
     }
 }

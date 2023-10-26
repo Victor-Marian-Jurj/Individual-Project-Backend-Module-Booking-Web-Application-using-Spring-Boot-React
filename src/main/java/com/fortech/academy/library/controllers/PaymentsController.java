@@ -2,6 +2,8 @@ package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.services.PaymentsService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +12,11 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("payments")
+@RequiredArgsConstructor
+@Slf4j
 public class PaymentsController {
 
     private final PaymentsService paymentsService;
-
-    public PaymentsController(PaymentsService paymentsService) {
-        this.paymentsService = paymentsService;
-    }
 
     @PostMapping
     public void createPayment(@RequestBody CreatePaymentRequest requestBody) {
@@ -42,6 +42,7 @@ public class PaymentsController {
 
     @GetMapping
     public ResponseEntity<ReadAllPaymentsResponse> readAllPayments() {
+        log.info("readAllPayments");
         List<Payment> payments = paymentsService.getAllPayments();
         ReadAllPaymentsResponse responseBody = new ReadAllPaymentsResponse(payments);
         return ResponseEntity.ok(responseBody);
