@@ -31,10 +31,8 @@ public class HotelsService {
     }
 
     @Transactional
-    public Hotel disableHotelWifiById(Long id) {
-        Hotel hotel = hotelsRepository.findById(id).orElseThrow();
-        hotel.setWifiConnection(false);
-        return hotel;
+    public void deleteHotelbyId(Long id) {
+         hotelsRepository.deleteById(id);
     }
 
     @Transactional

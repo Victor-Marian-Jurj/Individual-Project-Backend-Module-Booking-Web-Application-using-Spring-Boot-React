@@ -4,6 +4,7 @@ import com.fortech.academy.library.entities.Hotel;
 import com.fortech.academy.library.services.HotelsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 @RequestMapping("hotels")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class HotelsController {
 
     private final HotelsService hotelsService;
@@ -51,12 +53,12 @@ public class HotelsController {
         return ResponseEntity.ok(responseBody);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Hotel> disableHotelWifiById(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
         try {
-            Hotel responseBody = hotelsService.disableHotelWifiById(id);
-            return ResponseEntity.ok(responseBody);
-        } catch (NoSuchElementException exception) {
+            hotelsService.deleteHotelbyId(id);
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException ex) {
             return ResponseEntity.notFound().build();
         }
     }
