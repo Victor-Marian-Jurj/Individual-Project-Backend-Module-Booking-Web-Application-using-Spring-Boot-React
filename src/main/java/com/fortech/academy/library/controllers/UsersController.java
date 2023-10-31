@@ -69,7 +69,24 @@ public class UsersController {
         }
     }
 
-
+    @PatchMapping("{id}")
+    public ResponseEntity<User> updateUserById(@RequestBody UpdateUserRequest requestBody, @PathVariable Long id, Authentication authentication) {
+        try {
+            log.info("updateUser");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            User responseBody = usersService.updateUserById(id);
+            responseBody.setPassword(requestBody.getPassword());
+            responseBody.setFirstName(requestBody.getFirstName());
+            responseBody.setLastName(requestBody.getLastName());
+            responseBody.setPhoneNumber(requestBody.getPhoneNumber());
+            responseBody.setEmailAddress(requestBody.getEmailAddress());
+            usersService.updateUserById(responseBody.getUserId());
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
 

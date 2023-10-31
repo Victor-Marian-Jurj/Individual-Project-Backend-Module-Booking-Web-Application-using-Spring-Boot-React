@@ -32,4 +32,9 @@ private final UsersRepository usersRepository;
     public void deleteUserById(Long id) {
         usersRepository.deleteById(id);
     }
+
+    public User updateUserById(Long id) {
+        User user = usersRepository.findById(id).orElseThrow();
+        return user;
+    }
 }
