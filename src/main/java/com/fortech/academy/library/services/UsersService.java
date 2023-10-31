@@ -28,4 +28,8 @@ private final UsersRepository usersRepository;
         log.info("getAllUsers");
         return usersRepository.findAll();
     }
+
+    public void deleteUserById(Long id) {
+        usersRepository.deleteById(id);
+    }
 }
