@@ -1,10 +1,8 @@
-package com.fortech.academy.library.controllers;
+package com.fortech.academy.library.models;
 
 import java.util.Date;
 
-public class CreatePaymentRequest {
-
-    private int userId;
+public class UpdatePaymentRequest {
 
     private String nameOnCard;
 
@@ -13,17 +11,6 @@ public class CreatePaymentRequest {
     private Date expirationDate;
 
     private int cvcNumber;
-
-    public CreatePaymentRequest() {
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public String getNameOnCard() {
         return nameOnCard;

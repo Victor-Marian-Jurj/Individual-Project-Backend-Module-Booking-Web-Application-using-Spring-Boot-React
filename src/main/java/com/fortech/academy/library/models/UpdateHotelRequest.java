@@ -1,4 +1,4 @@
-package com.fortech.academy.library.controllers;
+package com.fortech.academy.library.models;
 
 public class UpdateHotelRequest {
 

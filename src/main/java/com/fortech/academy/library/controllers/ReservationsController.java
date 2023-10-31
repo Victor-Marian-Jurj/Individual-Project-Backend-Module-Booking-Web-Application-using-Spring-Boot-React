@@ -1,9 +1,15 @@
 package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Reservation;
+import com.fortech.academy.library.entities.Room;
+import com.fortech.academy.library.models.CreateReservationRequest;
+import com.fortech.academy.library.models.ReadAllReservationsResponse;
+import com.fortech.academy.library.models.UpdateReservationRequest;
+import com.fortech.academy.library.models.UpdateRoomRequest;
 import com.fortech.academy.library.services.ReservationsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +21,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("reservations")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class ReservationsController {
 
     private final ReservationsService reservationsService;
@@ -50,5 +57,38 @@ public class ReservationsController {
         List<Reservation> reservations = reservationsService.getAllReservations();
         ReadAllReservationsResponse responseBody = new ReadAllReservationsResponse(reservations);
         return ResponseEntity.ok(responseBody);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteReservationById(Long id, Authentication authentication) {
+        try {
+            log.info("deleteReservation");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            reservationsService.deleteReservationById(id);
+            return ResponseEntity.ok().build();
+        } catch (EmptyResultDataAccessException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Reservation> updateReservationById(@RequestBody UpdateReservationRequest requestBody, @PathVariable Long id, Authentication authentication) {
+        try {
+            log.info("updateReservation");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            Reservation responseBody = reservationsService.updateReservationById(id);
+            responseBody.setUserId(requestBody.getUserId());
+            responseBody.setHotelId(requestBody.getHotelId());
+            responseBody.setRoomId(requestBody.getRoomId());
+            responseBody.setCheckInDate(requestBody.getCheckInDate());
+            responseBody.setCheckOutDate(requestBody.getCheckOutDate());
+            responseBody.setPaymentMethod(requestBody.getPaymentMethod());
+            responseBody.setTotalPayment(requestBody.getTotalPayment());
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -1,7 +1,9 @@
-package com.fortech.academy.library.controllers;
+package com.fortech.academy.library.models;
 
-public class CreateRoomRequest {
+public class UpdateRoomRequest {
+
     private int hotelId;
+
     private int roomNumber;
 
     private String roomType;

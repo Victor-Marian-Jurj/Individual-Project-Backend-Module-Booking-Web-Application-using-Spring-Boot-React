@@ -1,5 +1,6 @@
 package com.fortech.academy.library.services;
 
+import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.entities.Reservation;
 import com.fortech.academy.library.repositories.ReservationsRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class ReservationsService {
 
-private final ReservationsRepository reservationsRepository;
+    private final ReservationsRepository reservationsRepository;
 
     public void addReservation(Reservation newReservation) {
         reservationsRepository.save(newReservation);
@@ -28,5 +29,14 @@ private final ReservationsRepository reservationsRepository;
     public List<Reservation> getAllReservations() {
         log.info("getAllReservations");
         return reservationsRepository.findAll();
+    }
+
+    public void deleteReservationById(Long id) {
+        reservationsRepository.deleteById(id);
+    }
+
+    public Reservation updateReservationById(Long id) {
+        Reservation reservation = reservationsRepository.findById(id).orElseThrow();
+        return reservation;
     }
 }

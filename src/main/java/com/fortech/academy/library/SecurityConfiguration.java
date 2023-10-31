@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +21,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+
                 .httpBasic(withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+//                .formLogin("http://localhost:3000")
                 .formLogin(withDefaults());
 
         return http.build();
@@ -33,12 +38,12 @@ public class SecurityConfiguration {
                 .password("222")
                 .roles("USER")
                 .build();
-        UserDetails bogdan = User.withDefaultPasswordEncoder()
-                .username("bogdan")
+        UserDetails victor = User.withDefaultPasswordEncoder()
+                .username("victor")
                 .password("111")
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(cosmin, bogdan);
+        return new InMemoryUserDetailsManager(cosmin, victor);
     }
 }
