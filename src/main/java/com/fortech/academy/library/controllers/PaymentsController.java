@@ -71,5 +71,23 @@ public class PaymentsController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Payment> updatePaymentById(@RequestBody UpdatePaymentRequest requestBody, @PathVariable Long id, Authentication authentication) {
+        try {
+            log.info("updatePayment");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            Payment responseBody = paymentsService.updatePaymentById(id);
+            responseBody.setNameOnCard(requestBody.getNameOnCard());
+            responseBody.setCardNumber(requestBody.getCardNumber());
+            responseBody.setExpirationDate(requestBody.getExpirationDate());
+            responseBody.setCvcNumber(requestBody.getCvcNumber());
+            paymentsService.updatePaymentById(responseBody.getPaymentId());
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 

@@ -33,4 +33,9 @@ public class PaymentsService {
     public void deletePaymentById(Long id) {
         paymentsRepository.deleteById(id);
     }
+
+    public Payment updatePaymentById(Long id) {
+        Payment payment = paymentsRepository.findById(id).orElseThrow();
+        return payment;
+    }
 }
