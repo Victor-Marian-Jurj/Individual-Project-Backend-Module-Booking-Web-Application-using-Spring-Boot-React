@@ -30,4 +30,8 @@ public class RoomsService {
         log.info("getAllRooms");
         return roomsRepository.findAll();
     }
+
+    public void deleteRoomById(Long id) {
+        roomsRepository.deleteById(id);
+    }
 }
