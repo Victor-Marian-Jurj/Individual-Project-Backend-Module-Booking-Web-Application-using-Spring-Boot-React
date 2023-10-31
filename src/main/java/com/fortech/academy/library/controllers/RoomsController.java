@@ -39,8 +39,9 @@ public class RoomsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Room> readRoomById (@PathVariable Long id) {
-        try { Room responseBody = roomsService.getRoomById(id);
+    public ResponseEntity<Room> readRoomById(@PathVariable Long id) {
+        try {
+            Room responseBody = roomsService.getRoomById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
@@ -67,6 +68,24 @@ public class RoomsController {
             roomsService.deleteRoomById(id);
             return ResponseEntity.noContent().build();
         } catch (EmptyResultDataAccessException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Room> updateRoomById(@RequestBody UpdateRoomRequest requestBody, @PathVariable Long id, Authentication authentication) {
+        try {
+            log.info("updateRoom");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            Room responseBody = roomsService.updateRoomById(id);
+            responseBody.setHotelId(requestBody.getHotelId());
+            responseBody.setRoomNumber(requestBody.getRoomNumber());
+            responseBody.setRoomType(requestBody.getRoomType());
+            responseBody.setRoomFloor(requestBody.getRoomFloor());
+            responseBody.setRoomPrice(requestBody.getRoomPrice());
+            return ResponseEntity.ok(responseBody);
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
