@@ -1,14 +1,22 @@
 package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Hotel;
+import com.fortech.academy.library.models.CreateHotelRequest;
+import com.fortech.academy.library.models.HotelDTO;
+import com.fortech.academy.library.models.HotelResponse;
+import com.fortech.academy.library.models.UpdateHotelRequest;
 import com.fortech.academy.library.services.HotelsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.Authentication;
 
 @RestController
@@ -18,10 +26,15 @@ import org.springframework.security.core.Authentication;
 @CrossOrigin(origins = "*")
 public class HotelsController {
 
+    @Autowired
+    private ModelMapper modelMapper;
     private final HotelsService hotelsService;
 
     @PostMapping
-    public void createHotel(@RequestBody CreateHotelRequest requestBody) {
+    public void createHotel(@RequestBody CreateHotelRequest requestBody, Authentication authentication) {
+        log.info("createHotel");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         Hotel newHotel = new Hotel();
         newHotel.setHotelName(requestBody.getHotelName());
         newHotel.setHotelLocation(requestBody.getHotelLocation());
@@ -43,36 +56,47 @@ public class HotelsController {
         }
     }
 
+    private HotelDTO convertToDTO(Hotel hotel) {
+        return modelMapper.map(hotel, HotelDTO.class);
+    }
+
     @GetMapping
-    public ResponseEntity<ReadAllHotelsResponse> readAllHotels(Authentication authentication) {
+    public ResponseEntity<HotelResponse> readAllHotels(Authentication authentication) {
         log.info("readAllHotels");
         log.info("authentication = {}", authentication);
         log.info("authentication.getName = {}", authentication.getName());
         List<Hotel> hotels = hotelsService.getAllHotels();
-        ReadAllHotelsResponse responseBody = new ReadAllHotelsResponse(hotels);
+        List<HotelDTO> hotelDTOList = hotels.stream().map(this::convertToDTO).collect(Collectors.toList());
+        HotelResponse responseBody = new HotelResponse(hotelDTOList);
         return ResponseEntity.ok(responseBody);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteHotelById(@PathVariable Long id, Authentication authentication) {
         try {
-            hotelsService.deleteHotelbyId(id);
+            log.info("deleteHotel");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            hotelsService.deleteHotelById(id);
             return ResponseEntity.noContent().build();
-        } catch (EmptyResultDataAccessException ex) {
+        } catch (EmptyResultDataAccessException exception) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PatchMapping("{id}")
-    public ResponseEntity<Hotel> updateHotel(@RequestBody UpdateHotelRequest requestBody, @PathVariable Long id) {
+    public ResponseEntity<Hotel> updateHotel(@RequestBody UpdateHotelRequest requestBody, @PathVariable Long id, Authentication authentication) {
         try {
-            Hotel responseBody = hotelsService.updateOneHotel(id);
+            log.info("updateHotel");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            Hotel responseBody = hotelsService.updateHotelById(id);
             responseBody.setRating(requestBody.getRating());
             responseBody.setBreakfast(requestBody.isBreakfast());
             responseBody.setWifiConnection(true);
             responseBody.setPrivateParking(requestBody.isPrivateParking());
             responseBody.setMinibar(requestBody.isMinibar());
-            hotelsService.updateOneHotel(responseBody.getHotelId());
+            hotelsService.updateHotelById(responseBody.getHotelId());
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
