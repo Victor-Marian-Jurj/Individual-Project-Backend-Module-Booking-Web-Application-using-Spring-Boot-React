@@ -29,4 +29,8 @@ private final ReservationsRepository reservationsRepository;
         log.info("getAllReservations");
         return reservationsRepository.findAll();
     }
+
+    public void deleteReservationById(Long id) {
+        reservationsRepository.deleteById(id);
+    }
 }
