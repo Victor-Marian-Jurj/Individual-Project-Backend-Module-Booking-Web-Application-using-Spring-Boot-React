@@ -1,5 +1,6 @@
 package com.fortech.academy.library.services;
 
+import com.fortech.academy.library.entities.Hotel;
 import com.fortech.academy.library.entities.Payment;
 import com.fortech.academy.library.repositories.PaymentsRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,9 @@ public class PaymentsService {
     public List<Payment> getAllPayments() {
         log.info("getAllPayments");
         return paymentsRepository.findAll();
+    }
+
+    public void deletePaymentById(Long id) {
+        paymentsRepository.deleteById(id);
     }
 }

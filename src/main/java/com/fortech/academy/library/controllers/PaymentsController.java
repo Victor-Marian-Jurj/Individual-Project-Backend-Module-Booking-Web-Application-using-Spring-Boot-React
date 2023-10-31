@@ -1,9 +1,13 @@
 package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Payment;
+import com.fortech.academy.library.models.CreatePaymentRequest;
+import com.fortech.academy.library.models.ReadAllPaymentsResponse;
+import com.fortech.academy.library.models.UpdatePaymentRequest;
 import com.fortech.academy.library.services.PaymentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +19,16 @@ import java.util.NoSuchElementException;
 @RequestMapping("payments")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class PaymentsController {
 
     private final PaymentsService paymentsService;
 
     @PostMapping
-    public void createPayment(@RequestBody CreatePaymentRequest requestBody) {
+    public void createPayment(@RequestBody CreatePaymentRequest requestBody, Authentication authentication) {
+        log.info("createPayment");
+        log.info("authentication = {}", authentication);
+        log.info("authentication.getName = {}", authentication.getName());
         Payment newPayment = new Payment();
         newPayment.setUserId(requestBody.getUserId());
         newPayment.setNameOnCard(requestBody.getNameOnCard());
@@ -49,6 +57,19 @@ public class PaymentsController {
         List<Payment> payments = paymentsService.getAllPayments();
         ReadAllPaymentsResponse responseBody = new ReadAllPaymentsResponse(payments);
         return ResponseEntity.ok(responseBody);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deletePaymentById(Long id, Authentication authentication) {
+        try {
+            log.info("deletePayment");
+            log.info("authentication = {}", authentication);
+            log.info("authentication.getName = {}", authentication.getName());
+            paymentsService.deletePaymentById(id);
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
