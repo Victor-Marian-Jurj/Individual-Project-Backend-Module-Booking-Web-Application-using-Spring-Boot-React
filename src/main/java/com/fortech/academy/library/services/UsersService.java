@@ -35,6 +35,6 @@ private final UsersRepository usersRepository;
 
     public User updateUserById(Long id) {
         User user = usersRepository.findById(id).orElseThrow();
-        return user;
+        return usersRepository.save(user);
     }
 }
