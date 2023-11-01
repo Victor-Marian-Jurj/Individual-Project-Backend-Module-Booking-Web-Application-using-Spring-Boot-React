@@ -37,6 +37,6 @@ public class ReservationsService {
 
     public Reservation updateReservationById(Long id) {
         Reservation reservation = reservationsRepository.findById(id).orElseThrow();
-        return reservation;
+        return reservationsRepository.save(reservation);
     }
 }

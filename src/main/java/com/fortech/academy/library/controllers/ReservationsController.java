@@ -85,6 +85,7 @@ public class ReservationsController {
             responseBody.setCheckOutDate(requestBody.getCheckOutDate());
             responseBody.setPaymentMethod(requestBody.getPaymentMethod());
             responseBody.setTotalPayment(requestBody.getTotalPayment());
+            reservationsService.updateReservationById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
