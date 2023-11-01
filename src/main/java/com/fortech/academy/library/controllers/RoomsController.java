@@ -65,7 +65,7 @@ public class RoomsController {
             log.info("authentication = {}", authentication);
             log.info("authentication.getName = {}", authentication.getName());
             roomsService.deleteRoomById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException exception) {
             return ResponseEntity.notFound().build();
         }
@@ -83,6 +83,7 @@ public class RoomsController {
             responseBody.setRoomType(requestBody.getRoomType());
             responseBody.setRoomFloor(requestBody.getRoomFloor());
             responseBody.setRoomPrice(requestBody.getRoomPrice());
+            roomsService.updateRoomById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
