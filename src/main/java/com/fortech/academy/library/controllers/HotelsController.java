@@ -77,7 +77,7 @@ public class HotelsController {
             log.info("authentication = {}", authentication);
             log.info("authentication.getName = {}", authentication.getName());
             hotelsService.deleteHotelbyId(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException exception) {
             return ResponseEntity.notFound().build();
         }
@@ -95,7 +95,7 @@ public class HotelsController {
             responseBody.setWifiConnection(true);
             responseBody.setPrivateParking(requestBody.isPrivateParking());
             responseBody.setMinibar(requestBody.isMinibar());
-            hotelsService.updateHotelById(responseBody.getHotelId());
+            hotelsService.updateHotelById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
