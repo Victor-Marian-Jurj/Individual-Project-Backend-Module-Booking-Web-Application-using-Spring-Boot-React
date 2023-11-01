@@ -24,11 +24,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-
                 .httpBasic(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-//                .formLogin("http://localhost:3000")
                 .formLogin(withDefaults());
 
         return http.build();
