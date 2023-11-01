@@ -23,7 +23,6 @@ import org.springframework.security.core.Authentication;
 @RequestMapping("hotels")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class HotelsController {
 
     @Autowired
@@ -77,7 +76,7 @@ public class HotelsController {
             log.info("deleteHotel");
             log.info("authentication = {}", authentication);
             log.info("authentication.getName = {}", authentication.getName());
-            hotelsService.deleteHotelById(id);
+            hotelsService.deleteHotelbyId(id);
             return ResponseEntity.noContent().build();
         } catch (EmptyResultDataAccessException exception) {
             return ResponseEntity.notFound().build();
