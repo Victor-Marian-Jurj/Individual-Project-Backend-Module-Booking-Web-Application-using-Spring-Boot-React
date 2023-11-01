@@ -37,6 +37,6 @@ public class RoomsService {
 
     public Room updateRoomById(Long id) {
         Room room = roomsRepository.findById(id).orElseThrow();
-        return room;
+        return roomsRepository.save(room);
     }
 }

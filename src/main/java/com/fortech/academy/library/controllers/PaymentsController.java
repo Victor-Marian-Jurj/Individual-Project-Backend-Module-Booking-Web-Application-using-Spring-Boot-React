@@ -65,7 +65,7 @@ public class PaymentsController {
             log.info("authentication = {}", authentication);
             log.info("authentication.getName = {}", authentication.getName());
             paymentsService.deletePaymentById(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         } catch (EmptyResultDataAccessException exception) {
             return ResponseEntity.notFound().build();
         }

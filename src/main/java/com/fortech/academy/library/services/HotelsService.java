@@ -38,7 +38,7 @@ public class HotelsService {
     @Transactional
     public Hotel updateHotelById(Long id) {
         Hotel hotel = hotelsRepository.findById(id).orElseThrow();
-        return hotel;
+        return hotelsRepository.save(hotel);
     }
 
 }

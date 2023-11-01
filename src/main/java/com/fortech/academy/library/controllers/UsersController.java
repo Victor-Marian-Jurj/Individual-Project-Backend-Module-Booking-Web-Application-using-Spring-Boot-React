@@ -80,7 +80,7 @@ public class UsersController {
             responseBody.setLastName(requestBody.getLastName());
             responseBody.setPhoneNumber(requestBody.getPhoneNumber());
             responseBody.setEmailAddress(requestBody.getEmailAddress());
-            usersService.updateUserById(responseBody.getUserId());
+            usersService.updateUserById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
