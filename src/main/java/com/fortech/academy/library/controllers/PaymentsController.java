@@ -19,7 +19,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("payments")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class PaymentsController {
 
     private final PaymentsService paymentsService;

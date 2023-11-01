@@ -19,7 +19,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("rooms")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class RoomsController {
 
     private final RoomsService roomsService;

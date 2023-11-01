@@ -19,7 +19,6 @@ import java.util.NoSuchElementException;
 @RequestMapping("users")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "*")
 public class UsersController {
 
     private final UsersService usersService;
