@@ -36,6 +36,6 @@ public class PaymentsService {
 
     public Payment updatePaymentById(Long id) {
         Payment payment = paymentsRepository.findById(id).orElseThrow();
-        return payment;
+        return paymentsRepository.save(payment);
     }
 }
