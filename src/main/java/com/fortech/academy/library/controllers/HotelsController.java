@@ -2,7 +2,7 @@ package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Hotel;
 import com.fortech.academy.library.models.CreateHotelRequest;
-import com.fortech.academy.library.models.HotelDTO;
+import com.fortech.academy.library.models.HotelDto;
 import com.fortech.academy.library.models.HotelResponse;
 import com.fortech.academy.library.models.UpdateHotelRequest;
 import com.fortech.academy.library.services.HotelsService;
@@ -55,8 +55,8 @@ public class HotelsController {
         }
     }
 
-    private HotelDTO convertToDTO(Hotel hotel) {
-        return modelMapper.map(hotel, HotelDTO.class);
+    private HotelDto convertToDTO(Hotel hotel) {
+        return modelMapper.map(hotel, HotelDto.class);
     }
 
     @GetMapping
@@ -65,8 +65,8 @@ public class HotelsController {
         log.info("authentication = {}", authentication);
         log.info("authentication.getName = {}", authentication.getName());
         List<Hotel> hotels = hotelsService.getAllHotels();
-        List<HotelDTO> hotelDTOList = hotels.stream().map(this::convertToDTO).collect(Collectors.toList());
-        HotelResponse responseBody = new HotelResponse(hotelDTOList);
+        List<HotelDto> hotelDtoList = hotels.stream().map(this::convertToDTO).collect(Collectors.toList());
+        HotelResponse responseBody = new HotelResponse(hotelDtoList);
         return ResponseEntity.ok(responseBody);
     }
 

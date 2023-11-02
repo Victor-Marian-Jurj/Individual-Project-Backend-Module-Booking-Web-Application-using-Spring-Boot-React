@@ -5,15 +5,15 @@ import java.util.List;
 
 public class HotelResponse {
 
-    private final List<HotelDTO> hotels = new ArrayList<>();
+    private final List<HotelDto> hotels = new ArrayList<>();
 
     public HotelResponse() {
     }
 
-    public HotelResponse(List<HotelDTO> hotels) {
+    public HotelResponse(List<HotelDto> hotels) {
         this.hotels.addAll(hotels);
     }
-    public List<HotelDTO> getHotel() {
+    public List<HotelDto> getHotel() {
         return hotels;
     }
 }
