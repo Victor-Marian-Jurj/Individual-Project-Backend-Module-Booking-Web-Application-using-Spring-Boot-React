@@ -1,11 +1,7 @@
 package com.fortech.academy.library.controllers;
 
 import com.fortech.academy.library.entities.Reservation;
-import com.fortech.academy.library.entities.Room;
-import com.fortech.academy.library.models.CreateReservationRequest;
-import com.fortech.academy.library.models.ReadAllReservationsResponse;
-import com.fortech.academy.library.models.UpdateReservationRequest;
-import com.fortech.academy.library.models.UpdateRoomRequest;
+import com.fortech.academy.library.models.*;
 import com.fortech.academy.library.services.ReservationsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,17 +45,17 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllReservationsResponse> readAllReservations(Authentication authentication) {
+    public ResponseEntity<ReservationsResponse> readAllReservations(Authentication authentication) {
         log.info("readAllReservations");
         log.info("authentication = {}", authentication);
         log.info("authentication.getName = {}", authentication.getName());
-        List<Reservation> reservations = reservationsService.getAllReservations();
-        ReadAllReservationsResponse responseBody = new ReadAllReservationsResponse(reservations);
+        List<ReservationDto> reservations = reservationsService.getAllReservations();
+        ReservationsResponse responseBody = new ReservationsResponse(reservations);
         return ResponseEntity.ok(responseBody);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteReservationById(Long id, Authentication authentication) {
+    public ResponseEntity<Void> deleteReservationById(@PathVariable Long id, Authentication authentication) {
         try {
             log.info("deleteReservation");
             log.info("authentication = {}", authentication);

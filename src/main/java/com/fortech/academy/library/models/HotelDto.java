@@ -1,12 +1,11 @@
 package com.fortech.academy.library.models;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class HotelDTO {
+public class HotelDto {
 
 
     private Long hotelId;
@@ -25,7 +24,7 @@ public class HotelDTO {
 
     private boolean minibar;
 
-    public HotelDTO() {
+    public HotelDto() {
     }
 
 
