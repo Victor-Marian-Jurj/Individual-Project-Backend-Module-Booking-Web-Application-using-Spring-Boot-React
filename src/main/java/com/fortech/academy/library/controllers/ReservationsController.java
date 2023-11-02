@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("reservations")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class ReservationsController {
 
     private final ReservationsService reservationsService;
