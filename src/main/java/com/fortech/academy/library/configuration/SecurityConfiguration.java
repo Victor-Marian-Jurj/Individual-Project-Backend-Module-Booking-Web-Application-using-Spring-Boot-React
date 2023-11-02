@@ -1,4 +1,4 @@
-package com.fortech.academy.library;
+package com.fortech.academy.library.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
