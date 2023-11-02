@@ -1,14 +1,24 @@
 package com.fortech.academy.library.services;
 
-import com.fortech.academy.library.entities.Payment;
+import com.fortech.academy.library.entities.Hotel;
 import com.fortech.academy.library.entities.Reservation;
+import com.fortech.academy.library.entities.Room;
+import com.fortech.academy.library.entities.User;
+import com.fortech.academy.library.models.ReservationDto;
+import com.fortech.academy.library.repositories.HotelsRepository;
 import com.fortech.academy.library.repositories.ReservationsRepository;
+import com.fortech.academy.library.repositories.RoomsRepository;
+import com.fortech.academy.library.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +26,14 @@ import java.util.NoSuchElementException;
 public class ReservationsService {
 
     private final ReservationsRepository reservationsRepository;
+
+    private final HotelsRepository hotelsRepository;
+
+    private final UsersRepository usersRepository;
+
+    private final RoomsRepository roomsRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     public void addReservation(Reservation newReservation) {
         reservationsRepository.save(newReservation);
@@ -26,9 +44,34 @@ public class ReservationsService {
 
     }
 
-    public List<Reservation> getAllReservations() {
+    public List<ReservationDto> getAllReservations() {
+
         log.info("getAllReservations");
-        return reservationsRepository.findAll();
+        List<Reservation> reservations = reservationsRepository.findAll();
+        List<ReservationDto> reservationDtoList = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            ReservationDto currentDto = modelMapper.map(reservation, ReservationDto.class);
+            Optional<Hotel> currentHotel = hotelsRepository.findById((long) reservation.getHotelId());
+            Optional<User> currentUser = usersRepository.findById((long) reservation.getUserId());
+            Optional<Room> currentRoom = roomsRepository.findById((long) reservation.getRoomId());
+            currentDto.setHotelName(currentHotel.get().getHotelName());
+            currentDto.setHotelLocation(currentHotel.get().getHotelLocation());
+            currentDto.setUsername(currentUser.get().getUsername());
+            currentDto.setFirstName(currentUser.get().getFirstName());
+            currentDto.setLastName(currentUser.get().getLastName());
+            currentDto.setCheckInDate(reservation.getCheckInDate());
+            currentDto.setCheckOutDate(reservation.getCheckOutDate());
+            currentDto.setRoomNumber(currentRoom.get().getRoomNumber());
+            currentDto.setRoomNumber(currentRoom.get().getRoomNumber());
+            currentDto.setRoomType(currentRoom.get().getRoomType());
+            currentDto.setRoomPrice(currentRoom.get().getRoomPrice());
+            currentDto.setTotalPayment(reservation.getTotalPayment());
+            currentDto.setPaymentMethod(reservation.getPaymentMethod());
+
+            reservationDtoList.add(currentDto);
+
+        }
+        return reservationDtoList;
     }
 
     public void deleteReservationById(Long id) {
