@@ -23,6 +23,7 @@ import org.springframework.security.core.Authentication;
 @RequestMapping("hotels")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class HotelsController {
 
     @Autowired
