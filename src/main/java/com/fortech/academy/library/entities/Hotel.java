@@ -32,10 +32,16 @@ public class Hotel {
     @Column(name = "minibar")
     private boolean minibar;
 
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
     public Hotel() {
     }
 
-    public Hotel(String hotelName, String hotelLocation, int rating, boolean breakfast, boolean wifiConnection, boolean privateParking, boolean minibar) {
+    public Hotel(String hotelName, String hotelLocation, int rating, boolean breakfast, boolean wifiConnection, boolean privateParking, boolean minibar, double latitude, double longitude) {
         this.hotelName = hotelName;
         this.hotelLocation = hotelLocation;
         this.rating = rating;
@@ -43,6 +49,8 @@ public class Hotel {
         this.wifiConnection = wifiConnection;
         this.privateParking = privateParking;
         this.minibar = minibar;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public Long getHotelId() {
@@ -103,5 +111,21 @@ public class Hotel {
 
     public void setMinibar(boolean minibar) {
         this.minibar = minibar;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
