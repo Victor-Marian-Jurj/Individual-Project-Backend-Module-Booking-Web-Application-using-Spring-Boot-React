@@ -93,7 +93,7 @@ public class HotelsController {
             Hotel responseBody = hotelsService.updateHotelById(id);
             responseBody.setRating(requestBody.getRating());
             responseBody.setBreakfast(requestBody.isBreakfast());
-            responseBody.setWifiConnection(true);
+            responseBody.setWifiConnection(requestBody.isWifiConnection());
             responseBody.setPrivateParking(requestBody.isPrivateParking());
             responseBody.setMinibar(requestBody.isMinibar());
             hotelsService.updateHotelById(id);
