@@ -43,6 +43,8 @@ public class HotelsController {
         newHotel.setWifiConnection(true);
         newHotel.setPrivateParking(requestBody.isPrivateParking());
         newHotel.setMinibar(requestBody.isMinibar());
+        newHotel.setLatitude(requestBody.getLatitude());
+        newHotel.setLongitude(requestBody.getLongitude());
         hotelsService.addHotel(newHotel);
     }
 
