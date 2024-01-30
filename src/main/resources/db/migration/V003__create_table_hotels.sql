@@ -6,5 +6,7 @@ rating INTEGER NOT NULL,
 breakfast bool NOT NULL,
 wifi_connection bool NOT NULL,
 private_parking	bool NOT NULL,
-minibar bool NOT NULL
+minibar bool NOT NULL,
+latitude double precision NOT NULL,
+longitude double precision NOT NULL
 );

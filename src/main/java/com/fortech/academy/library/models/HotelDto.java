@@ -24,6 +24,10 @@ public class HotelDto {
 
     private boolean minibar;
 
+    private double latitude;
+
+    private double longitude;
+
     public HotelDto() {
     }
 

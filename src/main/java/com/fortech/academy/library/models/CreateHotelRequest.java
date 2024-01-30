@@ -16,6 +16,10 @@ public class CreateHotelRequest {
 
     private boolean minibar;
 
+    private double latitude;
+
+    private double longitude;
+
     public String getHotelName() {
         return hotelName;
     }
@@ -70,5 +74,21 @@ public class CreateHotelRequest {
 
     public void setMinibar(boolean minibar) {
         this.minibar = minibar;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
