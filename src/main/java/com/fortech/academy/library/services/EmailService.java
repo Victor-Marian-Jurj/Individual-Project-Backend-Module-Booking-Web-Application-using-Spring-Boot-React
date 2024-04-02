@@ -1,6 +1,8 @@
 package com.fortech.academy.library.services;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,58 +23,48 @@ public class EmailService {
     private String templateId;
     @Autowired
     SendGrid sendGrid;
-    public String sendEmail(String email)  {
-
+    public boolean sendEmail(String email)  {
         try {
-            Mail mail = prepareMail(email);
-
-            Request request = new Request();
-
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-
-            request.setBody(mail.build());
-
-
-            Response response = sendGrid.api(request);
-
-            if(response!=null) {
-
-                System.out.println("response code from sendgrid"+response.getHeaders());
-
+            if (!isValidEmail(email)) {
+                return false;
             }
 
+            Mail mail = prepareMail(email);
+            Request request = new Request();
+            request.setMethod(Method.POST);
+            request.setEndpoint("mail/send");
+            request.setBody(mail.build());
+            Response response = sendGrid.api(request);
+
+            if (response != null && response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (IOException e) {
-
-
             e.printStackTrace();
-            return "error in sent mail!";
+            return false;
         }
-
-        return "mail has been sent check your inbox!";
-
     }
 
-    public Mail prepareMail(String email) {
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
+    private Mail prepareMail(String email) {
         Mail mail = new Mail();
-
         Email fromEmail = new Email();
-
         fromEmail.setEmail("hotelshubwebapplication@gmail.com");
-
         mail.setFrom(fromEmail);
         Email to = new Email();
         to.setEmail(email);
-
-
         Personalization personalization = new Personalization();
-
         personalization.addTo(to);
         mail.addPersonalization(personalization);
-
         mail.setTemplateId(templateId);
-
         return mail;
     }
 }
