@@ -4,34 +4,56 @@ import com.fortech.academy.library.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class EmailController {
-    @Autowired
-    EmailService emailService;
 
-    @GetMapping({"/sendMail/{email}"})
-    public ResponseEntity<String> sendEmail(@PathVariable(value = "email", required = true) String email) {
+    @Autowired
+    private EmailService emailService;
+
+    @PostMapping("/sendMail")
+    public ResponseEntity<String> sendEmailWithAttachment(
+            @RequestParam("email") String email,
+            @RequestParam("file") MultipartFile file) {
+
+        if (email == null || email.isEmpty()) {
+            return ResponseEntity.badRequest().body("Email address is required");
+        }
+
+        if (file == null || file.isEmpty()) {
+            return ResponseEntity.badRequest().body("No file attached");
+        }
 
         boolean isValidEmail = emailService.isValidEmail(email);
         if (!isValidEmail) {
-            // Return HTTP status code 400 (Bad Request) for invalid email
             return ResponseEntity.badRequest().body("Invalid email address");
         }
-        // Proceed with sending the email
-        boolean emailSent = emailService.sendEmail(email);
+
+        // Get the file content, name, and type
+        byte[] attachmentContent;
+        String attachmentFileName;
+        String attachmentType;
+
+        try {
+            attachmentContent = file.getBytes();
+            attachmentFileName = file.getOriginalFilename();
+            attachmentType = file.getContentType();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to read file");
+        }
+
+        // Send the email with attachment using the EmailService
+        boolean emailSent = emailService.sendEmail(email, attachmentContent, attachmentFileName, attachmentType);
         if (emailSent) {
-            // Return HTTP status code 200 (OK) for successful email sending
             return ResponseEntity.ok().body("Email sent successfully");
         } else {
-            // Return HTTP status code 500 (Internal Server Error) for failed email sending
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
 }
-

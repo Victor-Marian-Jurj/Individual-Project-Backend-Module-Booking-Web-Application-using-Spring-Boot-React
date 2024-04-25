@@ -1,35 +1,39 @@
 package com.fortech.academy.library.services;
 
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Attachments;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import java.util.Base64;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class EmailService {
 
     @Value("${app.sendgrid.templateId}")
     private String templateId;
+
     @Autowired
     SendGrid sendGrid;
-    public boolean sendEmail(String email)  {
+
+
+    public boolean sendEmail(String email, byte[] attachmentContent, String attachmentFileName, String attachmentType)  {
         try {
             if (!isValidEmail(email)) {
                 return false;
             }
 
-            Mail mail = prepareMail(email);
+            Mail mail = prepareMail(email, attachmentContent, attachmentFileName, attachmentType);
             Request request = new Request();
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
@@ -54,7 +58,7 @@ public class EmailService {
         return matcher.matches();
     }
 
-    private Mail prepareMail(String email) {
+    private Mail prepareMail(String email, byte[] attachmentContent, String attachmentFileName, String attachmentType) {
         Mail mail = new Mail();
         Email fromEmail = new Email();
         fromEmail.setEmail("hotelshubwebapplication@gmail.com");
@@ -65,6 +69,14 @@ public class EmailService {
         personalization.addTo(to);
         mail.addPersonalization(personalization);
         mail.setTemplateId(templateId);
+
+        // Attach file if provided
+        if (attachmentContent != null && attachmentFileName != null && attachmentType != null) {
+            Attachments attachments = new Attachments.Builder(attachmentFileName, Base64.getEncoder().encodeToString(attachmentContent))
+                    .withType(attachmentType)
+                    .build();
+            mail.addAttachments(attachments);
+        }
         return mail;
     }
 }
