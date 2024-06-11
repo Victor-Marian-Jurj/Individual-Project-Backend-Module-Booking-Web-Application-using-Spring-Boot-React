@@ -1,31 +1,33 @@
 package com.fortech.academy.library.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class UpdateReservationRequest {
 
-    private int userId;
+    private Long reservationId;
 
     private int hotelId;
 
-    private int roomId;
+    private String firstName;
 
-    private Date checkInDate;
+    private String lastName;
 
-    private Date checkOutDate;
+    private String phoneNumber;
+
+    private String emailAddress;
+
+    private String roomType;
+
+    private int roomPrice;
+
+    private LocalDate checkInDate;
+
+    private LocalDate checkOutDate;
 
     private String paymentMethod;
 
     private int totalPayment;
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public int getHotelId() {
         return hotelId;
@@ -35,27 +37,67 @@ public class UpdateReservationRequest {
         this.hotelId = hotelId;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Date getCheckInDate() {
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public int getRoomPrice() {
+        return roomPrice;
+    }
+
+    public void setRoomPrice(int roomPrice) {
+        this.roomPrice = roomPrice;
+    }
+
+    public LocalDate getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(LocalDate checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    public LocalDate getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
+    public void setCheckOutDate(LocalDate checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
@@ -73,5 +115,13 @@ public class UpdateReservationRequest {
 
     public void setTotalPayment(int totalPayment) {
         this.totalPayment = totalPayment;
+    }
+
+    public Long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 }

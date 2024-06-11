@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -14,27 +15,19 @@ public class ReservationDto {
 
     private Long reservationId;
 
-    private int userId;
-
     private int hotelId;
 
-    private int roomId;
+    private LocalDate checkInDate;
 
-    private Date checkInDate;
-
-    private Date checkOutDate;
+    private LocalDate checkOutDate;
 
     private String paymentMethod;
 
     private int totalPayment;
 
-    private String username;
-
     private String firstName;
 
     private String lastName;
-
-    private int roomNumber;
 
     private String roomType;
 
@@ -43,4 +36,8 @@ public class ReservationDto {
     private String hotelName;
 
     private String hotelLocation;
+
+    private String phoneNumber;
+
+    private String emailAddress;
 }
