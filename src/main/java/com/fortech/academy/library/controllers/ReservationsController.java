@@ -25,9 +25,17 @@ public class ReservationsController {
     @PostMapping
     public void createReservation(@RequestBody CreateReservationRequest requestBody) {
         Reservation newReservation = new Reservation();
-        newReservation.setUserId(requestBody.getUserId());
-        newReservation.setHotelId(requestBody.getHotelId());
-        newReservation.setRoomId(requestBody.getRoomId());
+//        newReservation.setUserId(requestBody.getUserId());
+//        newReservation.setRoomId(requestBody.getRoomId());
+        newReservation.setHotelId(Math.toIntExact(requestBody.getHotelId()));
+        newReservation.setFirstName(requestBody.getFirstName());
+        newReservation.setLastName(requestBody.getLastName());
+        newReservation.setPhoneNumber(requestBody.getPhoneNumber());
+        newReservation.setEmailAddress(requestBody.getEmailAddress());
+        newReservation.setRoomType(requestBody.getRoomType());
+        newReservation.setRoomPrice(requestBody.getRoomPrice());
+
+
         newReservation.setCheckInDate(requestBody.getCheckInDate());
         newReservation.setCheckOutDate(requestBody.getCheckOutDate());
         newReservation.setPaymentMethod(requestBody.getPaymentMethod());
@@ -75,9 +83,16 @@ public class ReservationsController {
             log.info("authentication = {}", authentication);
             log.info("authentication.getName = {}", authentication.getName());
             Reservation responseBody = reservationsService.updateReservationById(id);
-            responseBody.setUserId(requestBody.getUserId());
+            responseBody.setReservationId(responseBody.getReservationId());
+//            responseBody.setUserId(requestBody.getUserId());
             responseBody.setHotelId(requestBody.getHotelId());
-            responseBody.setRoomId(requestBody.getRoomId());
+//            responseBody.setRoomId(requestBody.getRoomId());
+            responseBody.setFirstName(requestBody.getFirstName());
+            responseBody.setLastName(requestBody.getLastName());
+            responseBody.setEmailAddress(requestBody.getEmailAddress());
+            responseBody.setPhoneNumber(requestBody.getPhoneNumber());
+            responseBody.setRoomPrice(requestBody.getRoomPrice());
+            responseBody.setRoomType(requestBody.getRoomType());
             responseBody.setCheckInDate(requestBody.getCheckInDate());
             responseBody.setCheckOutDate(requestBody.getCheckOutDate());
             responseBody.setPaymentMethod(requestBody.getPaymentMethod());

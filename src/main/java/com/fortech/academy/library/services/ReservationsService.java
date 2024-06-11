@@ -29,9 +29,9 @@ public class ReservationsService {
 
     private final HotelsRepository hotelsRepository;
 
-    private final UsersRepository usersRepository;
-
-    private final RoomsRepository roomsRepository;
+//    private final UsersRepository usersRepository;
+//
+//    private final RoomsRepository roomsRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -52,21 +52,21 @@ public class ReservationsService {
         for (Reservation reservation : reservations) {
             ReservationDto currentDto = modelMapper.map(reservation, ReservationDto.class);
             Optional<Hotel> currentHotel = hotelsRepository.findById((long) reservation.getHotelId());
-            Optional<User> currentUser = usersRepository.findById((long) reservation.getUserId());
-            Optional<Room> currentRoom = roomsRepository.findById((long) reservation.getRoomId());
+//            Optional<User> currentUser = usersRepository.findById((long) reservation.getUserId());
+//            Optional<Room> currentRoom = roomsRepository.findById((long) reservation.getRoomId());
             currentDto.setHotelName(currentHotel.get().getHotelName());
             currentDto.setHotelLocation(currentHotel.get().getHotelLocation());
-            currentDto.setUsername(currentUser.get().getUsername());
-            currentDto.setFirstName(currentUser.get().getFirstName());
-            currentDto.setLastName(currentUser.get().getLastName());
+//            currentDto.setUsername(currentUser.get().getUsername());
+            currentDto.setFirstName(reservation.getFirstName());
+            currentDto.setLastName(reservation.getLastName());
             currentDto.setCheckInDate(reservation.getCheckInDate());
             currentDto.setCheckOutDate(reservation.getCheckOutDate());
-            currentDto.setRoomNumber(currentRoom.get().getRoomNumber());
-            currentDto.setRoomNumber(currentRoom.get().getRoomNumber());
-            currentDto.setRoomType(currentRoom.get().getRoomType());
-            currentDto.setRoomPrice(currentRoom.get().getRoomPrice());
+            currentDto.setRoomType(reservation.getRoomType());
+            currentDto.setRoomPrice(reservation.getRoomPrice());
             currentDto.setTotalPayment(reservation.getTotalPayment());
             currentDto.setPaymentMethod(reservation.getPaymentMethod());
+            currentDto.setPhoneNumber(reservation.getPhoneNumber());
+            currentDto.setEmailAddress(reservation.getEmailAddress());
 
             reservationDtoList.add(currentDto);
 
