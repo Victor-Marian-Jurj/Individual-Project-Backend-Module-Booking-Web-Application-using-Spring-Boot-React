@@ -44,9 +44,9 @@ public class ReservationsController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Reservation> readReservationById(@PathVariable Long id) {
+    public ResponseEntity<ReservationDto> readReservationById(@PathVariable Long id) {
         try {
-            Reservation responseBody = reservationsService.getReservationById(id);
+            ReservationDto responseBody = reservationsService.getReservationById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();

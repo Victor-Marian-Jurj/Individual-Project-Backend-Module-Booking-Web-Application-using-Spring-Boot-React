@@ -1,54 +1,97 @@
 package com.fortech.academy.library.models;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class UpdateHotelRequest {
 
-        private int rating;
+    private int rating;
 
-        private boolean breakfast;
+    private int price;
 
-        private boolean wifiConnection;
+    private String room;
 
-        private boolean privateParking;
+    private LocalDate checkInInterval;
 
-        private boolean minibar;
+    private LocalDate checkOutInterval;
 
-        public int getRating() {
-            return rating;
-        }
+    private boolean breakfast;
 
-        public void setRating(int rating) {
-            this.rating = rating;
-        }
+    private boolean wifiConnection;
 
-        public boolean isBreakfast() {
-            return breakfast;
-        }
+    private boolean privateParking;
 
-        public void setBreakfast(boolean breakfast) {
-            this.breakfast = breakfast;
-        }
+    private boolean minibar;
 
-        public boolean isWifiConnection() {
-            return wifiConnection;
-        }
+    public int getRating() {
+        return rating;
+    }
 
-        public void setWifiConnection(boolean wifiConnection) {
-            this.wifiConnection = wifiConnection;
-        }
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 
-        public boolean isPrivateParking() {
-            return privateParking;
-        }
+    public boolean isBreakfast() {
+        return breakfast;
+    }
 
-        public void setPrivateParking(boolean privateParking) {
-            this.privateParking = privateParking;
-        }
+    public void setBreakfast(boolean breakfast) {
+        this.breakfast = breakfast;
+    }
 
-        public boolean isMinibar() {
-            return minibar;
-        }
+    public boolean isWifiConnection() {
+        return wifiConnection;
+    }
 
-        public void setMinibar(boolean minibar) {
-            this.minibar = minibar;
-        }
+    public void setWifiConnection(boolean wifiConnection) {
+        this.wifiConnection = wifiConnection;
+    }
+
+    public boolean isPrivateParking() {
+        return privateParking;
+    }
+
+    public void setPrivateParking(boolean privateParking) {
+        this.privateParking = privateParking;
+    }
+
+    public boolean isMinibar() {
+        return minibar;
+    }
+
+    public void setMinibar(boolean minibar) {
+        this.minibar = minibar;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public LocalDate getCheckInInterval() {
+        return checkInInterval;
+    }
+
+    public void setCheckInInterval(LocalDate checkInInterval) {
+        this.checkInInterval = checkInInterval;
+    }
+
+    public LocalDate getCheckOutInterval() {
+        return checkOutInterval;
+    }
+
+    public void setCheckOutInterval(LocalDate checkOutInterval) {
+        this.checkOutInterval = checkOutInterval;
+    }
 }

@@ -39,9 +39,20 @@ public class ReservationsService {
         reservationsRepository.save(newReservation);
     }
 
-    public Reservation getReservationById(Long id) throws NoSuchElementException {
-        return reservationsRepository.findById(id).orElseThrow();
+    public ReservationDto getReservationById(Long id) {
+        Reservation reservation = reservationsRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Reservation not found with id: " + id));
 
+        Optional<Hotel> optionalHotel = hotelsRepository.findById((long) reservation.getHotelId());
+        Hotel hotel = optionalHotel.orElse(null); // Handle if hotel is not found
+
+        ReservationDto reservationDto = modelMapper.map(reservation, ReservationDto.class);
+        if (hotel != null) {
+            reservationDto.setHotelName(hotel.getHotelName());
+            reservationDto.setHotelLocation(hotel.getHotelLocation());
+        }
+
+        return reservationDto;
     }
 
     public List<ReservationDto> getAllReservations() {

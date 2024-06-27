@@ -1,10 +1,20 @@
 package com.fortech.academy.library.models;
 
+import java.time.LocalDate;
+
 public class CreateHotelRequest {
 
     private String hotelName;
 
     private String hotelLocation;
+
+    private String room;
+
+    private int price;
+
+    private LocalDate checkInInterval;
+
+    private LocalDate checkOutInterval;
 
     private int rating;
 
@@ -90,5 +100,37 @@ public class CreateHotelRequest {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public LocalDate getCheckInInterval() {
+        return checkInInterval;
+    }
+
+    public void setCheckInInterval(LocalDate checkInInterval) {
+        this.checkInInterval = checkInInterval;
+    }
+
+    public LocalDate getCheckOutInterval() {
+        return checkOutInterval;
+    }
+
+    public void setCheckOutInterval(LocalDate checkOutInterval) {
+        this.checkOutInterval = checkOutInterval;
     }
 }

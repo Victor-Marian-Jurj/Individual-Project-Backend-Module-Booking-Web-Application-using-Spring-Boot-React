@@ -1,6 +1,14 @@
 package com.fortech.academy.library.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "hotels")
@@ -16,6 +24,18 @@ public class Hotel {
 
     @Column(name = "hotel_location")
     private String hotelLocation;
+
+    @Column(name = "room")
+    private String room;
+
+    @Column(name = "price")
+    private int price;
+
+    @Column(name = "check_in_interval")
+    private LocalDate checkInInterval;
+
+    @Column(name = "check_out_interval")
+    private LocalDate checkOutInterval;
 
     @Column(name = "rating")
     private int rating;
@@ -41,7 +61,7 @@ public class Hotel {
     public Hotel() {
     }
 
-    public Hotel(String hotelName, String hotelLocation, int rating, boolean breakfast, boolean wifiConnection, boolean privateParking, boolean minibar, double latitude, double longitude) {
+    public Hotel(String hotelName, String hotelLocation, String room, int price, LocalDate checkInInterval, LocalDate checkOutInterval, int rating, boolean breakfast, boolean wifiConnection, boolean privateParking, boolean minibar, double latitude, double longitude) {
         this.hotelName = hotelName;
         this.hotelLocation = hotelLocation;
         this.rating = rating;
@@ -51,6 +71,10 @@ public class Hotel {
         this.minibar = minibar;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.price = price;
+        this.room = room;
+        this.checkInInterval = checkInInterval;
+        this.checkOutInterval = checkOutInterval;
     }
 
     public Long getHotelId() {
@@ -127,5 +151,37 @@ public class Hotel {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public LocalDate getCheckInInterval() {
+        return checkInInterval;
+    }
+
+    public void setCheckInInterval(LocalDate checkInInterval) {
+        this.checkInInterval = checkInInterval;
+    }
+
+    public LocalDate getCheckOutInterval() {
+        return checkOutInterval;
+    }
+
+    public void setCheckOutInterval(LocalDate checkOutInterval) {
+        this.checkOutInterval = checkOutInterval;
     }
 }
