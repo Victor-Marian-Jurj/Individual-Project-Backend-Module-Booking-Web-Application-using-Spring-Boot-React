@@ -3,6 +3,9 @@ package com.fortech.academy.library.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @AllArgsConstructor
 @Data
 public class HotelDto {
@@ -15,6 +18,14 @@ public class HotelDto {
     private String hotelLocation;
 
     private int rating;
+
+    private int price;
+
+    private String room;
+
+    private LocalDate checkInInterval;
+
+    private LocalDate checkOutInterval;
 
     private boolean breakfast;
 

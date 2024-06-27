@@ -45,6 +45,10 @@ public class HotelsController {
         newHotel.setMinibar(requestBody.isMinibar());
         newHotel.setLatitude(requestBody.getLatitude());
         newHotel.setLongitude(requestBody.getLongitude());
+        newHotel.setRoom(requestBody.getRoom());
+        newHotel.setPrice(requestBody.getPrice());
+        newHotel.setCheckInInterval(requestBody.getCheckInInterval());
+        newHotel.setCheckOutInterval(requestBody.getCheckOutInterval());
         hotelsService.addHotel(newHotel);
     }
 
@@ -98,6 +102,10 @@ public class HotelsController {
             responseBody.setWifiConnection(requestBody.isWifiConnection());
             responseBody.setPrivateParking(requestBody.isPrivateParking());
             responseBody.setMinibar(requestBody.isMinibar());
+            responseBody.setRoom(requestBody.getRoom());
+            responseBody.setPrice(requestBody.getPrice());
+            responseBody.setCheckInInterval(requestBody.getCheckInInterval());
+            responseBody.setCheckOutInterval(requestBody.getCheckOutInterval());
             hotelsService.updateHotelById(id);
             return ResponseEntity.ok(responseBody);
         } catch (NoSuchElementException exception) {

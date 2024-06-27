@@ -40,5 +40,4 @@ public class HotelsService {
         Hotel hotel = hotelsRepository.findById(id).orElseThrow();
         return hotelsRepository.save(hotel);
     }
-
 }
