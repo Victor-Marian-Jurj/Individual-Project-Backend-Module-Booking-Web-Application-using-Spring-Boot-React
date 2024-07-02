@@ -3,10 +3,9 @@ package com.fortech.academy.library.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservations")
 public class Reservation {
 
 

@@ -1,4 +1,4 @@
-CREATE TABLE reservation (
+CREATE TABLE reservations (
 reservation_id serial PRIMARY KEY,
 hotel_id INTEGER NOT NULL,
 first_name VARCHAR(30) NOT NULL,
